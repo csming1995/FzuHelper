@@ -33,6 +33,8 @@ public class MainContainerActivity extends AppCompatActivity implements Navigati
     NavigationView navigationView;
     MenuItem course_Item;
 
+    private String id;
+
     Bundle parameterToFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +42,12 @@ public class MainContainerActivity extends AppCompatActivity implements Navigati
         setContentView(R.layout.activity_main_container);
         ActivityController.addActivity(this);
 
+        id = getIntent().getStringExtra("id");
+        parameterToFragment = new Bundle();
+
+        parameterToFragment.putString("id",id);
         courseTableFragment = new CourseTableFragment();
+        courseTableFragment.setArguments(parameterToFragment);
         getFragmentManager().beginTransaction()
                 .replace(R.id.main_container , courseTableFragment)
                 .commit();
@@ -61,7 +68,9 @@ public class MainContainerActivity extends AppCompatActivity implements Navigati
     public void onResume(){
         super.onResume();
         course_Item.setChecked(true);
+        parameterToFragment.putString("id",id);
         courseTableFragment = new CourseTableFragment();
+        courseTableFragment.setArguments(parameterToFragment);
         getFragmentManager().beginTransaction()
                 .replace(R.id.main_container , courseTableFragment)
                 .commit();
@@ -80,7 +89,6 @@ public class MainContainerActivity extends AppCompatActivity implements Navigati
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.course_table, menu);
         return true;
     }
@@ -100,17 +108,19 @@ public class MainContainerActivity extends AppCompatActivity implements Navigati
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-        switch (id){
+        switch (item.getItemId()){
             case R.id.item1:
+                parameterToFragment.putString("id",id);
                 courseTableFragment = new CourseTableFragment();
+                courseTableFragment.setArguments(parameterToFragment);
                 getFragmentManager().beginTransaction()
                         .replace(R.id.main_container , courseTableFragment)
                         .commit();
                 break;
             case R.id.item2:
+                parameterToFragment.putString("id",id);
                 gradeFragment = new GradeFragment();
+                gradeFragment.setArguments(parameterToFragment);
                 getFragmentManager().beginTransaction()
                         .replace(R.id.main_container , gradeFragment)
                         .commit();
@@ -123,14 +133,15 @@ public class MainContainerActivity extends AppCompatActivity implements Navigati
                 break;
             case R.id.item4:
                 Intent intent4 = new Intent(MainContainerActivity.this , OtherActivity.class);
+                intent4.putExtra("id" , id);
                 startActivity(intent4);
                 break;
             case R.id.item8:
+                parameterToFragment.putString("id",id);
                 Intent intent_9 = new Intent(MainContainerActivity.this,SettingActivity.class);
                 startActivity(intent_9);
                 break;
         }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

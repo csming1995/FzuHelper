@@ -16,6 +16,13 @@ import com.helper.west2ol.fzuhelper.util.ActivityController;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
     Button login_button;
+
+    private String id_1;
+    private String num;
+    //从Logincheck.asp获取的id和num
+
+    private String id_2;//从LOGIN_CHK_XS获取,后面获取web信息的唯一标识码
+
     @Override
     public void onCreate(Bundle savedIntanceState){
         super.onCreate(savedIntanceState);
@@ -36,6 +43,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.login_button:
                 this.finish();
                 Intent intent = new Intent(LoginActivity.this , MainContainerActivity.class);
+                intent.putExtra("id" , id_2);
                 startActivity(intent);
         }
     }
