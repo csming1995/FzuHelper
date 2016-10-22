@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/item1"
+            android:checked="true"
+            android:icon="@mipmap/ic_launcher"
+            android:title="课程表"></item>
+        <item
+            android:id="@+id/item2"
+            android:icon="@mipmap/ic_launcher"
+            android:title="查成绩"></item>
+        <item
+            android:id="@+id/item3"
+            android:icon="@mipmap/ic_launcher"
+            android:title="知数"></item>
+        <item
+            android:id="@+id/item4"
+            android:icon="@mipmap/ic_launcher"
+            android:title="工具箱"></item>
+    </group>
+    <group
+        android:checkableBehavior="single">
+        <item android:title="生活服务">
+            <menu>
+                <item
+                    android:id="@+id/item5"
+                    android:icon="@mipmap/ic_launcher"
+                    android:title="校园导航"></item>
+                <item
+                    android:id="@+id/item6"
+                    android:icon="@mipmap/ic_launcher"
+                    android:title="小白定位"></item>
+                <item
+                    android:id="@+id/item7"
+                    android:icon="@mipmap/ic_launcher"
+                    android:title="路透社"></item>
+            </menu>
+        </item>
+    </group>
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/item8"
+            android:icon="@mipmap/ic_launcher"
+            android:title="设置"></item>
+    </group>
+</menu>
