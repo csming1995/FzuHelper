@@ -1,4 +1,4 @@
-package com.example.coderqiang.okhttp3test;
+package com.helper.west2ol.fzuhelper.util;
 
 import android.util.Log;
 
@@ -10,6 +10,9 @@ import okhttp3.Response;
 
 /**
  * Created by CoderQiang on 2016/10/24.
+ *
+ *
+ * OKHttp的网络拦截器，用于获取Cookie和id
  */
 
 public class LoginInterceptor implements Interceptor {

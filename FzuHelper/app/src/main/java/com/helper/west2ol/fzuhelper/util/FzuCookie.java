@@ -1,7 +1,9 @@
-package com.example.coderqiang.okhttp3test;
+package com.helper.west2ol.fzuhelper.util;
 
 /**
  * Created by CoderQiang on 2016/10/24.
+ *
+ * 在没有存入文件之前，用这个类的单例保存cookie
  */
 
 public class FzuCookie {
