@@ -1,5 +1,16 @@
 package com.helper.west2ol.fzuhelper.util;
 
+import android.util.Log;
+
+import java.io.IOException;
+import java.util.List;
+
+import okhttp3.Cookie;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
 /** Login
  * Http request
  * Accept:text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*
@@ -19,6 +30,7 @@ package com.helper.west2ol.fzuhelper.util;
 */
 
 public class HttpUtil {
+    private static final String TAG = "HttpUtil";
     public static final String LOGIN = "http://59.77.226.32/logincheck.asp";
     // parameter muser,passwwd,x=0,y=0
     public static final String LOGIN_CHK_XS = "http://59.77.226.35/loginchk_xs.aspx";
@@ -37,7 +49,32 @@ public class HttpUtil {
 
 
     public static void Login(String muser , String passwwd ){
-
+        OkHttpClient okHttpClient = new OkHttpClient.Builder().addNetworkInterceptor(new LoginInterceptor()).build();
+        FormBody formBody=new FormBody.Builder().add("muser",muser).add("passwd",passwwd).build();
+        Request request=new Request.Builder()
+                .url("http://59.77.226.32/logincheck.asp")
+                .method("Post",null)
+                .post(formBody)
+                .addHeader("Referer","http://jwch.fzu.edu.cn/")
+                .build();
+        try {
+            Response response=okHttpClient.newCall(request).execute();
+            if(!response.message().equals("OK")){
+                Log.i(TAG,"网络出错");
+                return;
+            }
+            Log.i(TAG, "Status" + response.message());
+            List<Cookie> cookies =null;
+            String result = new String(response.body().bytes());
+            if(result.contains("密码错误")){
+                Log.i(TAG,"密码错误");
+                return;
+            }
+            Log.i(TAG, "登录成功");
+        } catch (IOException e) {
+            Log.i(TAG,"网络出错");
+            e.printStackTrace();
+        }
     }
 
 
