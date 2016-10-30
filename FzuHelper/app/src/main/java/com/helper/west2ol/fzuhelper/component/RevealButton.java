@@ -117,7 +117,7 @@ public class RevealButton extends Button {
         canvas.restore();
 
         if (radio <= maxRadio) {
-            radio = radio + DIFFUSE_GAP;
+                radio = radio + DIFFUSE_GAP;
             postInvalidateDelayed(INVALIDATE_DURATION);
         } else {
             if (actionUpFlag) {

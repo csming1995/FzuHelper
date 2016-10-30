@@ -16,6 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp">
         <EditText
+            android:id="@+id/muser_editText"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_width="match_parent"
@@ -27,11 +28,12 @@
         android:layout_width="match_parent"
         android:layout_height="60dp">
         <EditText
+            android:id="@+id/passwd_editText"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:hint="账号"/>
+            android:hint="密码"/>
     </android.support.design.widget.TextInputLayout>
     <Button
         android:id="@+id/login_button"

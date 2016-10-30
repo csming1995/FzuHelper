@@ -48,7 +48,7 @@ public class HttpUtil {
     public static final String getEmptyClassRoom = "kkgl/kbcx/kbcx_choose.aspx"; //空教室
 
 
-    public static void Login(String muser , String passwwd ){
+    public static String Login(String muser , String passwwd ){
         OkHttpClient okHttpClient = new OkHttpClient.Builder().addNetworkInterceptor(new LoginInterceptor()).build();
         FormBody formBody=new FormBody.Builder().add("muser",muser).add("passwd",passwwd).build();
         Request request=new Request.Builder()
@@ -61,19 +61,21 @@ public class HttpUtil {
             Response response=okHttpClient.newCall(request).execute();
             if(!response.message().equals("OK")){
                 Log.i(TAG,"网络出错");
-                return;
+                return "网络出错";
             }
-            Log.i(TAG, "Status" + response.message());
             List<Cookie> cookies =null;
             String result = new String(response.body().bytes());
-            if(result.contains("密码错误")){
+            Log.i(TAG, result);
+            if(result.contains("<body bgcolor=C6DCB4><script language=javascript>alert")){
                 Log.i(TAG,"密码错误");
-                return;
+                return "密码错误";
             }
             Log.i(TAG, "登录成功");
+            return "登录成功";
         } catch (IOException e) {
             Log.i(TAG,"网络出错");
             e.printStackTrace();
+            return "网络出错";
         }
     }
 

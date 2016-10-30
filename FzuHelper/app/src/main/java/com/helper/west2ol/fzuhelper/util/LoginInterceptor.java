@@ -23,7 +23,6 @@ public class LoginInterceptor implements Interceptor {
         Request request=chain.request();
         Response response=chain.proceed(request);
 
-        Log.i(TAG, "response" + response.headers());
         String cookie=response.header("Set-Cookie");
         if (cookie != null) {
             FzuCookie.get().setCookie(cookie);
@@ -36,7 +35,6 @@ public class LoginInterceptor implements Interceptor {
             String temp;
             while(i<idStr.length()){
                 temp=idStr.substring(i,i+2);
-                Log.i(TAG,"temp:"+temp);
                 if(temp.equals("id")){
                     length=i;
                     break;
@@ -44,7 +42,6 @@ public class LoginInterceptor implements Interceptor {
                 i++;
             }
             FzuCookie.get().setId(idStr.substring(length));
-            Log.i(TAG, "id" + FzuCookie.get().getId());
         }
 
         return response;
