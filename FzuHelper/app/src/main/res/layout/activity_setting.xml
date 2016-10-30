@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite">
+    <include layout="@layout/title_setting"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        />
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -10,13 +15,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-            <Button
+            <com.helper.west2ol.fzuhelper.component.RevealButton
                 android:id="@+id/logout_button"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:layout_marginBottom="0dp"
-                android:shadowRadius="0"
-                android:text="退出"
                 android:layout_width="match_parent"
                 android:layout_height="50dp" />
         </LinearLayout>

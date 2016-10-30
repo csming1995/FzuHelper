@@ -16,12 +16,15 @@ import com.helper.west2ol.fzuhelper.util.ActivityController;
 
 public class SettingActivity extends AppCompatActivity implements View.OnClickListener{
     Button logout;
+    Button back_Button;
     @Override
     public void onCreate(Bundle savedIntanceState){
         super.onCreate(savedIntanceState);
         setContentView(R.layout.activity_setting);
         ActivityController.addActivity(this);
 
+        back_Button = (Button)findViewById(R.id.back_button_in_setting);
+        back_Button.setOnClickListener(this);
         logout = (Button)findViewById(R.id.logout_button);
         logout.setOnClickListener(this);
     }
@@ -38,6 +41,9 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                 ActivityController.finashAll();
                 Intent intent = new Intent(SettingActivity.this , LoginActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.back_button_in_setting:
+                this.finish();
         }
     }
 }
