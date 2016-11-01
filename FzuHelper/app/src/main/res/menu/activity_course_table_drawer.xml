@@ -6,19 +6,19 @@
         <item
             android:id="@+id/item1"
             android:checked="true"
-            android:icon="@mipmap/ic_launcher"
+            android:icon="@drawable/ic_coursetable"
             android:title="课程表"></item>
         <item
             android:id="@+id/item2"
-            android:icon="@mipmap/ic_launcher"
+            android:icon="@drawable/ic_grade"
             android:title="查成绩"></item>
         <item
             android:id="@+id/item3"
-            android:icon="@mipmap/ic_launcher"
+            android:icon="@drawable/ic_math"
             android:title="知数"></item>
         <item
             android:id="@+id/item4"
-            android:icon="@mipmap/ic_launcher"
+            android:icon="@drawable/ic_others"
             android:title="工具箱"></item>
     </group>
     <group
@@ -27,15 +27,15 @@
             <menu>
                 <item
                     android:id="@+id/item5"
-                    android:icon="@mipmap/ic_launcher"
+                    android:icon="@drawable/ic_wheretogo"
                     android:title="校园导航"></item>
                 <item
                     android:id="@+id/item6"
-                    android:icon="@mipmap/ic_launcher"
+                    android:icon="@drawable/ic_xiaobai"
                     android:title="小白定位"></item>
                 <item
                     android:id="@+id/item7"
-                    android:icon="@mipmap/ic_launcher"
+                    android:icon="@drawable/ic_lts"
                     android:title="路透社"></item>
             </menu>
         </item>
@@ -43,7 +43,7 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/item8"
-            android:icon="@mipmap/ic_launcher"
+            android:icon="@drawable/ic_setting"
             android:title="设置"></item>
     </group>
 </menu>

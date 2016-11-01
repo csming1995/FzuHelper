@@ -40,6 +40,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onCreate(Bundle savedIntanceState){
         super.onCreate(savedIntanceState);
         setContentView(R.layout.activity_login);
+        ActivityController.addActivity(this);
+
         ButterKnife.bind(this);
         login_button = (Button)findViewById(R.id.login_button);
         login_button.setOnClickListener(this);
