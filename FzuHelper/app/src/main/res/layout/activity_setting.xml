@@ -197,7 +197,7 @@
                     android:layout_height="25dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginBottom="5dp"
-                    android:text="你想认识帅比作者吗"
+                    android:text="想认识帅气的作者吗"
                     android:textColor="@color/colorGray"
                     android:textSize="13dp"/>
             </RelativeLayout>
@@ -232,7 +232,7 @@
                     android:layout_height="25dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginBottom="5dp"
-                    android:text="我们会见面的,对吧"
+                    android:text="我们会再见面的,对吧"
                     android:textColor="@color/colorGray"
                     android:textSize="13dp"/>
             </RelativeLayout>

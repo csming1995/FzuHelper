@@ -4,7 +4,7 @@ package com.helper.west2ol.fzuhelper.bean;
  * Created by Administrator on 2016/10/30.
  */
 
-public class CourseInfo {
+public class CourseBean {
     private String kcName;
     private String kcLocation;
     private String kcStartTime;
