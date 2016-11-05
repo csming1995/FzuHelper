@@ -137,6 +137,7 @@ public class CourseTableFragment extends Fragment{
         //第一个空白格子设置为25宽
         this.screenWidth = width;
         this.aveWidth = aveWidth;
+
         int height = dm.heightPixels;
         int gridHeight = height / 12;
         for(int i = 1; i <= 12; i ++) {
