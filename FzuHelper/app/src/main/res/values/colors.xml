@@ -5,7 +5,7 @@
     <color name="colorBlack">#000000</color>
     <color name="colorBackground">#47696c</color>
     <color name="colorAccent">#464960</color>
-    <color name="colorWhite">#cfcfcf</color>
-    <color name="colorGray">#9c9c9c</color>
+    <color name="colorWhite">#ffffff</color>
+    <color name="colorGray">#c1c0c0</color>
     <color name="colorRed">#EA0000</color>
 </resources>

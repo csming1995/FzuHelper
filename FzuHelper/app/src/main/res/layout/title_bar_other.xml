@@ -6,7 +6,7 @@
     android:background="@color/colorPrimary"
     android:gravity="center"
     android:elevation="15dp">
-    <com.helper.west2ol.fzuhelper.component.RevealButton
+    <Button
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:id="@+id/back_button_in_other"
@@ -22,7 +22,7 @@
         android:textSize="20dp"
         android:textColor="@color/colorWhite"
         android:text="工具箱"/>
-    <com.helper.west2ol.fzuhelper.component.RevealButton
+    <Button
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:id="@+id/more_button_in_math"

@@ -15,7 +15,6 @@ import java.util.List;
  * 以coursetable为例，编写了其增删改查
  * 在loginactivity登陆时调用create,并删除原有表
  */
-
 public class SQLiteUtil {
     public static SQLiteDatabase createDataBases(SQLiteDatabase db){
         db = SQLiteDatabase.openOrCreateDatabase("/data/data/com.helper.west2ol/databases/courseTable.db" , null);
