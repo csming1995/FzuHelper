@@ -71,18 +71,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         final String loginResponse = HttpUtil.Login(muser, passwd);
                         switch (loginResponse){
                             case "网络错误":
-//                                Toast.makeText(this, "网络错误", Toast.LENGTH_SHORT).show();
                                 break;
                             case "密码错误":
-//                                Toast.makeText(this,"密码错误",Toast.LENGTH_SHORT).show();
                                 Log.i(TAG, "密码错误");
                                 break;
                             case "登录成功":
-//                                Toast.makeText(this,"登录成功",Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(LoginActivity.this , MainContainerActivity.class);
                                 intent.putExtra("id" , id_2);
                                 startActivity(intent);
-//                                this.finish();
                                 break;
                         }
                         runOnUiThread(new Runnable() {

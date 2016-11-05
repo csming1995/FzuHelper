@@ -1,0 +1,32 @@
+package com.helper.west2ol.fzuhelper.bean;
+
+import android.content.Context;
+
+import java.util.ArrayList;
+
+/**
+ * Created by CoderQiang on 2016/11/5.
+ */
+
+public class CourseBeanLab {
+    private static CourseBeanLab courseBeanLab;
+    private ArrayList<CourseBean> courses;
+    private Context mContext;
+
+    private CourseBeanLab(Context context){
+        mContext=context;
+        courses=new ArrayList<CourseBean>();
+    }
+
+    public static CourseBeanLab get(Context context){
+        if (courseBeanLab == null) {
+            courseBeanLab = new CourseBeanLab(context);
+        }
+        return courseBeanLab;
+    }
+
+    public ArrayList<CourseBean> getCourses(){
+        return courses;
+    }
+
+}

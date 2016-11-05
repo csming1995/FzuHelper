@@ -7,15 +7,15 @@ package com.helper.west2ol.fzuhelper.bean;
 public class CourseBean {
     private String kcName;
     private String kcLocation;
-    private String kcStartTime;
-    private String kcEndTime;
-    private String kcStartWeek;
-    private String kcEndWeek;
-    private String kcIsDouble;
-    private String kcWeekend;
-    private String kcIsSingle;
-    private String kcYear;
-    private String kcXuenian;
+    private int kcStartTime;
+    private int kcEndTime;
+    private int kcStartWeek;
+    private int kcEndWeek;
+    private boolean kcIsDouble;
+    private int kcWeekend;
+    private boolean kcIsSingle;
+    private int kcYear;
+    private int kcXuenian;
     public void setKcName(String kcName){
         this.kcName = kcName;
     }
@@ -30,65 +30,75 @@ public class CourseBean {
         return kcLocation;
     }
 
-    public void setKcStartTime(String kcStartTime){
-        this.kcStartTime = kcStartTime;
-    }
-    public String getKcStartTime(){
+    public int getKcStartTime() {
         return kcStartTime;
     }
 
-    public void setKcEndTime(String kcEndTime){
-        this.kcEndTime = kcEndTime;
+    public void setKcStartTime(int kcStartTime) {
+        this.kcStartTime = kcStartTime;
     }
-    public String getKcEndTime(){
+
+    public int getKcEndTime() {
         return kcEndTime;
     }
-    public void setKcStartWeek(String kcStartWeek){
-        this.kcStartWeek = kcStartWeek;
+
+    public void setKcEndTime(int kcEndTime) {
+        this.kcEndTime = kcEndTime;
     }
-    public String getKcStartWeek(){
+
+    public int getKcStartWeek() {
         return kcStartWeek;
     }
 
-    public void setKcEndWeek(String kcEndWeek){
-        this.kcEndWeek = kcEndWeek;
+    public void setKcStartWeek(int kcStartWeek) {
+        this.kcStartWeek = kcStartWeek;
     }
-    public String getKcEndWeek(){
+
+    public int getKcEndWeek() {
         return kcEndWeek;
     }
 
-    public void setKcIsDouble(String kcIsDouble){
-        this.kcIsDouble = kcIsDouble;
+    public void setKcEndWeek(int kcEndWeek) {
+        this.kcEndWeek = kcEndWeek;
     }
-    public String getKcIsDouble(){
+
+    public boolean isKcIsDouble() {
         return kcIsDouble;
     }
 
-    public void setKcWeekend(String kcWeekend){
-        this.kcWeekend = kcWeekend;
+    public void setKcIsDouble(boolean kcIsDouble) {
+        this.kcIsDouble = kcIsDouble;
     }
-    public String getKcWeekend(){
+
+    public int getKcWeekend() {
         return kcWeekend;
     }
 
-    public void setKcIsSingle(String kcIsSingle){
-        this.kcIsSingle = kcIsSingle;
+    public void setKcWeekend(int kcWeekend) {
+        this.kcWeekend = kcWeekend;
     }
-    public String getKcIsSingle(){
+
+    public boolean isKcIsSingle() {
         return kcIsSingle;
     }
 
-    public void setKcYear(String kcYear){
+    public void setKcIsSingle(boolean kcIsSingle) {
+        this.kcIsSingle = kcIsSingle;
+    }
+
+    public int getKcYear() {
+        return kcYear;
+    }
+
+    public void setKcYear(int kcYear) {
         this.kcYear = kcYear;
     }
-    public String getKcYear(){
-        return kcYear;
 
-    }
-    public void setKcXuenian(String kcXuenian){
-        this.kcXuenian = kcXuenian;
-    }
-    public String getKcXuenian(){
+    public int getKcXuenian() {
         return kcXuenian;
+    }
+
+    public void setKcXuenian(int kcXuenian) {
+        this.kcXuenian = kcXuenian;
     }
 }

@@ -50,12 +50,13 @@ public class HttpUtil {
 
     public static String Login(String muser , String passwwd ){
         OkHttpClient okHttpClient = new OkHttpClient.Builder().addNetworkInterceptor(new LoginInterceptor()).build();
-        FormBody formBody=new FormBody.Builder().add("muser",muser).add("passwd",passwwd).build();
+        FormBody formBody=new FormBody.Builder().add("muser","031502344").add("passwd","zsqqq1996424").build();
         Request request=new Request.Builder()
                 .url("http://59.77.226.32/logincheck.asp")
                 .method("Post",null)
                 .post(formBody)
                 .addHeader("Referer","http://jwch.fzu.edu.cn/")
+                .addHeader("Connection","keep-alive")
                 .build();
         try {
             Response response=okHttpClient.newCall(request).execute();
@@ -65,7 +66,6 @@ public class HttpUtil {
             }
             List<Cookie> cookies =null;
             String result = new String(response.body().bytes());
-            Log.i(TAG, result);
             if(result.contains("<body bgcolor=C6DCB4><script language=javascript>alert")){
                 Log.i(TAG,"密码错误");
                 return "密码错误";
@@ -76,7 +76,36 @@ public class HttpUtil {
             Log.i(TAG,"网络出错");
             e.printStackTrace();
             return "网络出错";
+        } catch (Exception e){
+            Log.i(TAG,"网络出错");
+            e.printStackTrace();
+            return "网络出错";
         }
+    }
+
+    public static String getCourseHtml(){
+        String html=null;
+        OkHttpClient okHttpClient=new OkHttpClient.Builder().build();
+        Log.i(TAG, "id:" + FzuCookie.get().getId());
+        Request request=new Request.Builder()
+                .url("http://59.77.226.35/student/xyzk/cjyl/score_sheet.aspx?"+"id="+FzuCookie.get().getId())
+                .addHeader("Cookie",FzuCookie.get().getCookie()+"")
+                .addHeader("Accept-Language","zh-CN,zh;q=0.8,en;q=0.6")
+                .addHeader("Connection","keep-alive")
+                .build();
+        try {
+            Response response = okHttpClient.newCall(request).execute();
+            if(!response.message().equals("OK")){
+                Log.i(TAG,"获取课表失败，message不是Ok");
+                return null;
+            }
+            String result=new String(response.body().bytes());
+            Log.i(TAG, "result" + result);
+            return result;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return html;
     }
 
 

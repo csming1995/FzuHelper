@@ -3,9 +3,12 @@ package com.helper.west2ol.fzuhelper.activity;
 import android.app.Activity;
 import android.content.ClipData;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.os.AsyncTaskCompat;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -19,10 +22,13 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.helper.west2ol.fzuhelper.R;
+import com.helper.west2ol.fzuhelper.bean.CourseBeanLab;
 import com.helper.west2ol.fzuhelper.fragment.CourseTableFragment;
 import com.helper.west2ol.fzuhelper.fragment.GradeFragment;
 import com.helper.west2ol.fzuhelper.fragment.MathFragment;
 import com.helper.west2ol.fzuhelper.util.ActivityController;
+import com.helper.west2ol.fzuhelper.util.HtmlParseUtil;
+import com.helper.west2ol.fzuhelper.util.HttpUtil;
 
 public class MainContainerActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -58,6 +64,7 @@ public class MainContainerActivity extends AppCompatActivity implements Navigati
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         course_Item = navigationView.getMenu().getItem(0);
+        new Login().execute();
     }
     @Override
     public void onDestroy(){
@@ -145,5 +152,29 @@ public class MainContainerActivity extends AppCompatActivity implements Navigati
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private class Login extends AsyncTask<Void,Void,Void> {
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            HttpUtil.Login("dkfjd","djkf");
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            new getCourse().execute();
+        }
+    }
+    private class getCourse extends AsyncTask<Void,Void,Void> {
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            HtmlParseUtil.getCourse(getApplicationContext());
+            if(courseTableFragment!=null)
+                courseTableFragment.showKB(4,2016,1);
+            return null;
+        }
     }
 }
