@@ -25,6 +25,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private static final String TAG="LoginActivity";
     @Bind(R.id.login_button)
     Button login_button;
+
     @Bind(R.id.muser_editText)
     EditText muserEd;
     @Bind(R.id.passwd_editText)
