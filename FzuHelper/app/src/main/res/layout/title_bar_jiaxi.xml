@@ -9,8 +9,8 @@
     <Button
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:id="@+id/menu_button_in_grade"
-        android:background="@drawable/menu_button"
+        android:id="@+id/back_button_in_jiaxi"
+        android:background="@drawable/back_button"
         />
     <TextView
         android:layout_width="match_parent"
@@ -21,11 +21,11 @@
         android:gravity="center_vertical"
         android:textSize="20dp"
         android:textColor="@color/colorWhite"
-        android:text="查成绩"/>
+        android:text="嘉熙讲坛"/>
     <Button
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:id="@+id/more_button_in_grade"
+        android:id="@+id/more_button_in_jiaxi"
         android:background="@drawable/menu_2_button"
         />
 

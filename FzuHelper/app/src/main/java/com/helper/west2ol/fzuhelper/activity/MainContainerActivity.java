@@ -38,7 +38,6 @@ public class MainContainerActivity extends AppCompatActivity implements Navigati
 
     NavigationView navigationView;
     MenuItem course_Item;
-
     private String id;
 
     Bundle parameterToFragment;
@@ -50,7 +49,6 @@ public class MainContainerActivity extends AppCompatActivity implements Navigati
 
         id = getIntent().getStringExtra("id");
         parameterToFragment = new Bundle();
-
         parameterToFragment.putString("id",id);
         courseTableFragment = new CourseTableFragment();
         courseTableFragment.setArguments(parameterToFragment);
