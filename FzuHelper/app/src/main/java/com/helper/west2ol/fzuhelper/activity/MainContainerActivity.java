@@ -134,6 +134,11 @@ public class MainContainerActivity extends AppCompatActivity implements Navigati
                 intent4.putExtra("id" , id);
                 startActivity(intent4);
                 break;
+            case R.id.item7:
+                Intent intent7 = new Intent(MainContainerActivity.this , ReutersActivity.class);
+                intent7.putExtra("id" , id);
+                startActivity(intent7);
+                break;
             case R.id.item8:
                 parameterToFragment.putString("id",id);
                 Intent intent_9 = new Intent(MainContainerActivity.this,SettingActivity.class);

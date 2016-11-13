@@ -5,10 +5,8 @@
     android:layout_height="50dp"
     android:background="@color/colorPrimary"
     android:gravity="center"
-    android:elevation="15dp"
-
-    >
-    <com.helper.west2ol.fzuhelper.component.RevealButton
+    android:elevation="15dp">
+    <Button
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:id="@+id/back_button_in_reuters"
@@ -24,5 +22,11 @@
         android:textSize="20dp"
         android:textColor="@color/colorWhite"
         android:text="路透社"/>
+    <Button
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/more_button_in_reuters"
+        android:background="@drawable/menu_2_button"
+        />
 
 </LinearLayout>
