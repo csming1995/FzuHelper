@@ -3,8 +3,14 @@ package com.helper.west2ol.fzuhelper.fragment;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Color;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -16,6 +22,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -27,8 +34,15 @@ import com.helper.west2ol.fzuhelper.R;
 import com.helper.west2ol.fzuhelper.activity.MainContainerActivity;
 import com.helper.west2ol.fzuhelper.bean.CourseBean;
 import com.helper.west2ol.fzuhelper.bean.CourseBeanLab;
+import com.helper.west2ol.fzuhelper.bean.FDScoreLB;
+import com.helper.west2ol.fzuhelper.util.HtmlParseUtil;
+import com.helper.west2ol.fzuhelper.util.HttpUtil;
+import com.helper.west2ol.fzuhelper.view.MyScrollView;
 
 import java.util.ArrayList;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 import static android.R.id.empty;
 
@@ -58,7 +72,6 @@ public class CourseTableFragment extends Fragment{
     protected RelativeLayout course_table_layout;
     /** 屏幕宽度 **/
     protected int screenWidth;
-    private Toolbar toolbar;
     /** 课程格子平均宽度 **/
     protected int aveWidth;
 
@@ -69,17 +82,21 @@ public class CourseTableFragment extends Fragment{
     private ImageView menuIcon;
     private ImageView accountIcon;
     private DrawerLayout mDrawerLayout;
-    private SwipeRefreshLayout swipeRefreshLayout;
+//    private SwipeRefreshLayout swipeRefreshLayout;
     Button menu_button_in_course_table;
+    @Bind(R.id.course_table_myscrollview)
+    MyScrollView myScrollView;
     DrawerLayout drawer;
     @Override
     public void onCreate(Bundle savedIntenceState){
         super.onCreate(savedIntenceState);
+
     }
     @Override
     public View onCreateView(LayoutInflater inflater , ViewGroup container , Bundle savedIntanceState){
         View rootView = inflater.inflate(R.layout.fragment_course_table , container , false);
         view=rootView;
+        ButterKnife.bind(this, rootView);
         FloatingActionButton add = (FloatingActionButton) rootView.findViewById(R.id.more_button_in_coursetable);
         add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,7 +113,9 @@ public class CourseTableFragment extends Fragment{
                 drawer.openDrawer(Gravity.LEFT);
             }
         });
+        new getCourse().execute();
         initKB(rootView);
+        Log.i("CourseTable", "初始化完成");
         return rootView;
     }
 
@@ -110,24 +129,12 @@ public class CourseTableFragment extends Fragment{
         satColum  = (TextView) v.findViewById(R.id.test_saturday_course);
         sunColum = (TextView) v.findViewById(R.id.test_sunday_course);
         course_table_layout = (RelativeLayout) v.findViewById(R.id.test_course_rl);
-        swipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_refreshLayout);
-        swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary,
-                R.color.colorRed,
-                R.color.colorAccent,
-                R.color.colorBackground);
-        swipeRefreshLayout.setSize(SwipeRefreshLayout.DEFAULT);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-//                        refreshDate();
-//                        mHandler.sendEmptyMessage(1);
-                    }
-                }).start();
-            }
-        });
+//        swipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_refreshLayout);
+//        swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary,
+//                R.color.colorRed,
+//                R.color.colorAccent,
+//                R.color.colorBackground);
+//        swipeRefreshLayout.setSize(SwipeRefreshLayout.DEFAULT);
         DisplayMetrics dm = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
         //屏幕宽度
@@ -150,6 +157,15 @@ public class CourseTableFragment extends Fragment{
                 RelativeLayout.LayoutParams rp = new RelativeLayout.LayoutParams(aveWidth * 33 / 32 + 1, gridHeight);
                 //文字对齐方式
                 tx.setGravity(Gravity.CENTER);
+                if (j == 1) {
+                    tx.setText(i+"");
+                    rp.width = aveWidth * 3 / 4;
+                    //设置他们的相对位置
+                    if (i == 1)
+                        rp.addRule(RelativeLayout.BELOW, empty.getId());
+                    else
+                        rp.addRule(RelativeLayout.BELOW, (i - 1) * 8);
+                }
                 tx.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
                 tx.setLayoutParams(rp);
                 course_table_layout.addView(tx);
@@ -157,7 +173,7 @@ public class CourseTableFragment extends Fragment{
         }
     }
 
-    public void showKB(int week,int year,int xuenian){
+    public void showKB(int week, int year, int xuenian){
         course_table_layout.removeAllViews();
         initKB(view);
         DisplayMetrics dm = new DisplayMetrics();
@@ -169,7 +185,7 @@ public class CourseTableFragment extends Fragment{
         //第一个空白格子设置为25宽
         screenWidth = width;
         aveWidth = aveWidth;
-        int height = dm.heightPixels+toolbar.getHeight();
+        int height = dm.heightPixels;
 
         int gridHeight = height / 12;
         //设置课表界面
@@ -198,42 +214,45 @@ public class CourseTableFragment extends Fragment{
                 course_table_layout.addView(tx);
             }
         }
-        //五种颜色的背景
-//        int[] background = {
-//                R.drawable.course_info_blue,
-//                R.drawable.course_info_green,
-//                R.drawable.course_info_purple,
-//                R.drawable.course_info_purple_2,
-//                R.drawable.course_info_darkgreen,
-//                R.drawable.course_info_blue_2,
-//                R.drawable.course_info_green_2,
-//                R.drawable.course_info_red,
-//                R.drawable.course_info_red_light,
-//                R.drawable.course_info_green_3,
-//                R.drawable.course_info_purple_light,
-//                R.drawable.couse_info_primary,
-//                R.drawable.course_info_yellow,
-//                R.drawable.course_info_blue_1,
-//                R.drawable.course_info_purple_light_2,
-//                R.drawable.course_info_blue,
-//                R.drawable.course_info_green,
-//                R.drawable.course_info_purple,
-//                R.drawable.course_info_purple_2,
-//                R.drawable.course_info_darkgreen,
-//                R.drawable.course_info_blue_2,
-//                R.drawable.course_info_green_2,
-//                R.drawable.course_info_red,
-//                R.drawable.course_info_red_light,
-//                R.drawable.course_info_green_3,
-//                R.drawable.course_info_purple_light,
-//                R.drawable.couse_info_primary,
-//                R.drawable.course_info_yellow,
-//                R.drawable.course_info_blue_1,
-//                R.drawable.course_info_purple_light_2
-//        };
+        //课表颜色背景
+        int[] background = {
+                R.drawable.course_bg1,
+                R.drawable.course_bg2,
+                R.drawable.course_bg3,
+                R.drawable.course_bg4,
+                R.drawable.course_bg5,
+                R.drawable.course_bg6,
+                R.drawable.course_bg7,
+                R.drawable.course_bg8,
+                R.drawable.course_bg9,
+                R.drawable.course_bg10,
+                R.drawable.course_bg11,
+                R.drawable.course_bg12,
+                R.drawable.course_bg13,
+                R.drawable.course_bg14,
+                R.drawable.course_bg15,
+                R.drawable.course_bg16,
+                R.drawable.course_bg1,
+                R.drawable.course_bg2,
+                R.drawable.course_bg3,
+                R.drawable.course_bg4,
+                R.drawable.course_bg5,
+                R.drawable.course_bg6,
+                R.drawable.course_bg7,
+                R.drawable.course_bg8,
+                R.drawable.course_bg9,
+                R.drawable.course_bg10,
+                R.drawable.course_bg11,
+                R.drawable.course_bg12,
+                R.drawable.course_bg13,
+                R.drawable.course_bg14,
+                R.drawable.course_bg15,
+                R.drawable.course_bg16,
+        };
 
         // 添加课程信息
         ArrayList<CourseBean> kcs = CourseBeanLab.get(getActivity().getApplicationContext()).getCourses();
+        Log.i(TAG, "课程数" + kcs.size());
         int[][][] mark=new int[8][13][26];
         for(int j=0;j<8;j++) {
             for(int k=0;k<13;k++) {
@@ -280,11 +299,11 @@ public class CourseTableFragment extends Fragment{
             RelativeLayout.LayoutParams rlp = new RelativeLayout.LayoutParams(aveWidth * 31 / 32, (gridHeight - 5) * timecount );
             //textview的位置由课程开始节数和上课的时间（day of week）确定
 
-            rlp.topMargin = 5 + (kc.getKcStartTime()- 1) * gridHeight;
+            rlp.topMargin = 5 + (kc.getKcStartTime()- 1) * gridHeight+40;
             rlp.leftMargin = 1;
             // 偏移由这节课是星期几决定
             rlp.addRule(RelativeLayout.RIGHT_OF, kc.getKcWeekend());
-            //字体剧中
+            //字体居中
             courseInfo.setGravity(Gravity.CENTER);
             // 设置一种背景 根据当前周数设定
 
@@ -295,26 +314,23 @@ public class CourseTableFragment extends Fragment{
                     for(int j=kc.getKcStartTime();j<=kc.getKcEndTime();j++) {
                         mark[kc.getKcWeekend()][j][week]=1;
                     }
-                    courseInfo.setBackgroundResource(R.color.colorGray);
+                    courseInfo.setBackgroundResource(background[kc.getKcBackgroundId()]);
                     courseInfo.getBackground().setAlpha(200);
 
                 } else if(kc.isKcIsDouble() && week % 2 == 0){
                     for(int j=kc.getKcStartTime();j<=kc.getKcEndTime();j++) {
                         mark[kc.getKcWeekend()][j][week]=1;
                     }
-                    courseInfo.setBackgroundResource(R.color.colorRed);
+                    courseInfo.setBackgroundResource(background[kc.getKcBackgroundId()]);
                     courseInfo.getBackground().setAlpha(200);
-
                 }
+
             }
 
-
+            courseInfo.setTextColor(Color.WHITE);
             if(kc.getKcStartWeek()>week||kc.getKcEndWeek()<week||(!kc.isKcIsDouble()&&week%2==0)||(!kc.isKcIsSingle()&&week%2==1)){
                 int flag=0;
                 for(int j=kc.getKcStartTime();j<=kc.getKcEndTime();j++) {
-//                    if (kc.getName().equals("模拟电子技术")&&kc.getWeekend()==1) {
-//                        Log.i(TAG, "从" + kc.getStartTime()+"到"+kc.getEndTime()+" mark="+mark[kc.getWeekend()][j][week]);
-//                    }
                     if (mark[kc.getKcWeekend()][j][week] == 1) {
                         flag=1;
                         break;
@@ -325,17 +341,38 @@ public class CourseTableFragment extends Fragment{
                     continue;
                 }
 
-                courseInfo.setBackgroundResource(R.color.colorAccent);
+                courseInfo.setBackgroundResource(R.drawable.course_bg0);
                 courseInfo.getBackground().setAlpha(200);
+                courseInfo.setTextColor(Color.GRAY);
             }
             courseInfo.setTextSize(12);
             courseInfo.setLayoutParams(rlp);
-            courseInfo.setTextColor(Color.WHITE);
+
             //设置不透明度
             course_table_layout.addView(courseInfo);
         }
     }
+
+    private Handler mHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case 1:
+                    showKB(weekpre,yearpre,xuenianpre);
+//                    swipeRefreshLayout.setRefreshing(false);
+                    Toast.makeText(getActivity(), "刷新成功", Toast.LENGTH_SHORT).show();
+                    //swipeRefreshLayout.setEnabled(false);
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
+
     private void refreshDate(){
+        CourseBeanLab.get(getActivity()).getCourses().clear();
+        FDScoreLB.get(getActivity()).getScores().clear();
 //        KCLB.get(getActivity()).getKcs().clear();
 //        FDScoreLB.get(getActivity()).getScores().clear();
 //        String Xuehao = getActivity().getSharedPreferences("userinfo", Context.MODE_PRIVATE).getString("passwd","");
@@ -343,5 +380,23 @@ public class CourseTableFragment extends Fragment{
 //        String Passwd = getActivity( Passwd);
 //        Log.i("KBFragment", "学号" + UserInformation.get(getActivity()).getXuehao());
 //        HtmlAnalyze.getScore(getActivity(), Xuehao, Passwd);
+        HtmlParseUtil.getCourse(getActivity().getApplicationContext());
+    }
+
+    private class getCourse extends AsyncTask<Void,Void,Void> {
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            HtmlParseUtil.getCourse(getActivity());
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+                showKB(2, 2016, 1);
+                Log.i(TAG, "显示课表");
+
+        }
     }
 }

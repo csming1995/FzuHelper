@@ -64,9 +64,9 @@ public class HtmlParseUtil {
             Element timeEle = kb.select("td").get(10);
             String timeCou = timeEle.text();
             String[] strings = timeCou.split(" ");
-            int backgroudID = i;
             for (int j = 0; j < strings.length; j++) {
                 CourseBean kc = new CourseBean();
+                kc.setKcBackgroundId(i);
                 kc.setKcYear(year);
                 kc.setKcXuenian(xuenian);
                 kc.setKcName(title);

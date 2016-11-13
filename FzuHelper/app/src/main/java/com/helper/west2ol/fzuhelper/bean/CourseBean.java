@@ -11,11 +11,12 @@ public class CourseBean {
     private int kcEndTime;
     private int kcStartWeek;
     private int kcEndWeek;
-    private boolean kcIsDouble;
+    private boolean kcIsDouble=true;
     private int kcWeekend;
-    private boolean kcIsSingle;
+    private boolean kcIsSingle=true;
     private int kcYear;
     private int kcXuenian;
+    private int kcBackgroundId;
     public void setKcName(String kcName){
         this.kcName = kcName;
     }
@@ -100,5 +101,13 @@ public class CourseBean {
 
     public void setKcXuenian(int kcXuenian) {
         this.kcXuenian = kcXuenian;
+    }
+
+    public int getKcBackgroundId() {
+        return kcBackgroundId;
+    }
+
+    public void setKcBackgroundId(int kcBackgroundId) {
+        this.kcBackgroundId = kcBackgroundId;
     }
 }

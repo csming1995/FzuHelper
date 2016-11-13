@@ -31,8 +31,9 @@ import com.helper.west2ol.fzuhelper.util.HtmlParseUtil;
 import com.helper.west2ol.fzuhelper.util.HttpUtil;
 
 public class MainContainerActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+    private static final String TAG="MainActivity";
 
-    CourseTableFragment courseTableFragment;
+    public CourseTableFragment courseTableFragment;
     GradeFragment gradeFragment;
     MathFragment mathFragment;
 
@@ -56,14 +57,16 @@ public class MainContainerActivity extends AppCompatActivity implements Navigati
                 .replace(R.id.main_container , courseTableFragment)
                 .commit();
 
-
+        new Login().execute();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         course_Item = navigationView.getMenu().getItem(0);
-        new Login().execute();
+        course_Item.setChecked(true);
     }
+
+
     @Override
     public void onDestroy(){
         super.onDestroy();
@@ -72,13 +75,6 @@ public class MainContainerActivity extends AppCompatActivity implements Navigati
     @Override
     public void onResume(){
         super.onResume();
-        course_Item.setChecked(true);
-        parameterToFragment.putString("id",id);
-        courseTableFragment = new CourseTableFragment();
-        courseTableFragment.setArguments(parameterToFragment);
-        getFragmentManager().beginTransaction()
-                .replace(R.id.main_container , courseTableFragment)
-                .commit();
     }
     @Override
     public void onBackPressed() {
@@ -160,19 +156,5 @@ public class MainContainerActivity extends AppCompatActivity implements Navigati
             return null;
         }
 
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            new getCourse().execute();
-        }
-    }
-    private class getCourse extends AsyncTask<Void,Void,Void> {
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            HtmlParseUtil.getCourse(getApplicationContext());
-            if(courseTableFragment!=null)
-                courseTableFragment.showKB(4,2016,1);
-            return null;
-        }
     }
 }
