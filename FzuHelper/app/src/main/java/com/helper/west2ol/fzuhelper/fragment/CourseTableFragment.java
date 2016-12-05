@@ -18,6 +18,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.DragEvent;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +27,7 @@ import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,6 +40,8 @@ import com.helper.west2ol.fzuhelper.bean.FDScoreLB;
 import com.helper.west2ol.fzuhelper.util.HtmlParseUtil;
 import com.helper.west2ol.fzuhelper.util.HttpUtil;
 import com.helper.west2ol.fzuhelper.view.MyScrollView;
+import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
+import com.lcodecore.tkrefreshlayout.header.SinaRefreshView;
 
 import java.util.ArrayList;
 
@@ -82,10 +86,9 @@ public class CourseTableFragment extends Fragment{
     private ImageView menuIcon;
     private ImageView accountIcon;
     private DrawerLayout mDrawerLayout;
-//    private SwipeRefreshLayout swipeRefreshLayout;
     Button menu_button_in_course_table;
     @Bind(R.id.course_table_myscrollview)
-    MyScrollView myScrollView;
+    TwinklingRefreshLayout refreshLayout;
     DrawerLayout drawer;
     @Override
     public void onCreate(Bundle savedIntenceState){
@@ -129,7 +132,29 @@ public class CourseTableFragment extends Fragment{
         satColum  = (TextView) v.findViewById(R.id.test_saturday_course);
         sunColum = (TextView) v.findViewById(R.id.test_sunday_course);
         course_table_layout = (RelativeLayout) v.findViewById(R.id.test_course_rl);
-//        swipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_refreshLayout);
+        SinaRefreshView refreshView = new SinaRefreshView(getActivity());
+        refreshLayout.setHeaderView(refreshView);
+        refreshLayout.setOnRefreshListener(new TwinklingRefreshLayout.OnRefreshListener(){
+            @Override
+            public void onRefresh(final TwinklingRefreshLayout refreshLayout) {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Thread.sleep(500);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                refreshLayout.finishRefreshing();
+                            }
+                        });
+                    }
+                }).start();
+            }
+        });
 //        swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary,
 //                R.color.colorRed,
 //                R.color.colorAccent,

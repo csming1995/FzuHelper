@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<com.helper.west2ol.fzuhelper.view.MyScrollView
+<com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/course_table_myscrollview"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
+    >  <ScrollView
+    android:id="@+id/scroll_body"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="none"
     >
     <RelativeLayout
         android:layout_marginTop="4dp"
@@ -19,6 +23,7 @@
             android:text="@string/empty"
             />
         <LinearLayout
+            android:id="@+id/weekday_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -45,45 +50,45 @@
             </LinearLayout>
 
 
-        <LinearLayout
-            android:layout_toRightOf="@id/test_monday_course"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/courseTableText">
-            <!-- 星期二的格子 -->
-            <TextView android:id="@+id/test_tuesday_course"
+            <LinearLayout
+                android:layout_toRightOf="@id/test_monday_course"
+                android:layout_weight="1"
+                android:orientation="vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/tue"
-                android:textColor="@color/weekend_bg"
-                style="@style/courseTableText"
-                />
-            <TextView
-                android:id="@+id/course_table_date2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="11sp"
-                android:text="11/12"/>
-        </LinearLayout>
+                style="@style/courseTableText">
+                <!-- 星期二的格子 -->
+                <TextView android:id="@+id/test_tuesday_course"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tue"
+                    android:textColor="@color/weekend_bg"
+                    style="@style/courseTableText"
+                    />
+                <TextView
+                    android:id="@+id/course_table_date2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="11sp"
+                    android:text="11/12"/>
+            </LinearLayout>
             <!-- 星期三的格子 -->
-        <LinearLayout
-            android:layout_toRightOf="@id/test_monday_course"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/courseTableText">
-            <TextView android:id="@+id/test_wednesday_course"
+            <LinearLayout
+                android:layout_toRightOf="@id/test_monday_course"
+                android:layout_weight="1"
+                android:orientation="vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/wen"
-                android:textColor="@color/weekend_bg"
-                style="@style/courseTableText"
-                android:layout_toRightOf="@id/test_tuesday_course"
-                android:layout_weight="1"/>
-        </LinearLayout>
+                style="@style/courseTableText">
+                <TextView android:id="@+id/test_wednesday_course"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/wen"
+                    android:textColor="@color/weekend_bg"
+                    style="@style/courseTableText"
+                    android:layout_toRightOf="@id/test_tuesday_course"
+                    android:layout_weight="1"/>
+            </LinearLayout>
             <!-- 星期四的格子 -->
             <TextView android:id="@+id/test_thursday_course"
                 android:layout_width="wrap_content"
@@ -126,20 +131,16 @@
 
 
         <!-- 课程表body部分 -->
-        <ScrollView
-            android:id="@+id/scroll_body"
+
+        <!-- 课程信息 -->
+        <RelativeLayout
+            android:layout_below="@id/weekday_layout"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/test_empty"
-            android:scrollbars="none"
+            android:id="@+id/test_course_rl"
             >
-            <!-- 课程信息 -->
-            <RelativeLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/test_course_rl"
-                >
-            </RelativeLayout>
-        </ScrollView>
+        </RelativeLayout>
+
     </RelativeLayout>
-</com.helper.west2ol.fzuhelper.view.MyScrollView>
+</ScrollView>
+</com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
