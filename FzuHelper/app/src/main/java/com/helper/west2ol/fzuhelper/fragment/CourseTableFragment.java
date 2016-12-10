@@ -413,7 +413,6 @@ public class CourseTableFragment extends Fragment{
         @Override
         protected Void doInBackground(Void... params) {
             HtmlParseUtil.getCourse(getActivity());
-
             return null;
         }
 

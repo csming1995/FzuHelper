@@ -25,6 +25,10 @@ public class HtmlParseUtil {
     public static boolean getCourse(Context context) {
         ArrayList<FDScore> scores = FDScoreLB.get(context).getScores();
         ArrayList<CourseBean> kcs = CourseBeanLab.get(context).getCourses();
+        if(scores.size()>=1&&kcs.size()>=2){
+            Log.i(TAG, "已经解析过");
+            return true;
+        }
         String result = HttpUtil.getCourseHtml();
         Document document = Jsoup.parse(result);
         Elements courseEles = document.select("tr[onmouseover=c=this.style.backgroundColor;this.style.backgroundColor='#CCFFaa']");
@@ -118,6 +122,7 @@ public class HtmlParseUtil {
                 }
             }
         }
+
         Log.i(TAG,"共"+courseEles.size()+"个");
         return true;
     }

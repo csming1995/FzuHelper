@@ -12,6 +12,7 @@ public class CourseBeanLab {
     private static CourseBeanLab courseBeanLab;
     private ArrayList<CourseBean> courses;
     private Context mContext;
+    private boolean isParse;
 
     private CourseBeanLab(Context context){
         mContext=context;
@@ -29,4 +30,11 @@ public class CourseBeanLab {
         return courses;
     }
 
+    public boolean isParse() {
+        return isParse;
+    }
+
+    public void setParse(boolean parse) {
+        isParse = parse;
+    }
 }
