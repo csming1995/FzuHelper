@@ -15,16 +15,15 @@ import com.helper.west2ol.fzuhelper.R;
 
 public class ReutersNewsFragment extends Fragment {
 
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-
-        int a;
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.content_reuters_news , container , false);
+
         return view;
     }
 }

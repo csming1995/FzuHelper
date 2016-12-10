@@ -35,8 +35,9 @@
     <ImageView
         android:layout_width="15dp"
         android:layout_height="15dp"
+        android:layout_marginTop="5dp"
         android:id="@+id/star1"
-        android:src="@drawable/ic_grade" android:layout_below="@id/shopName"
+        android:layout_below="@id/shopName"
         android:layout_marginLeft="3dp"
     />
 
@@ -44,40 +45,32 @@
         android:layout_width="15dp"
         android:layout_height="15dp"
         android:id="@+id/star2"
-        android:src="@drawable/ic_grade"
         android:layout_alignTop="@id/star1"
         android:layout_toRightOf="@id/star1"
-        android:layout_marginLeft="2dp"
         />
 
     <ImageView
         android:layout_width="15dp"
         android:layout_height="15dp"
         android:id="@+id/star3"
-        android:src="@drawable/ic_grade"
         android:layout_alignTop="@id/star2"
         android:layout_toRightOf="@id/star2"
-        android:layout_marginLeft="2dp"
         />
 
     <ImageView
         android:layout_width="15dp"
         android:layout_height="15dp"
         android:id="@+id/star4"
-        android:src="@drawable/ic_grade"
         android:layout_alignTop="@id/star3"
         android:layout_toRightOf="@id/star3"
-        android:layout_marginLeft="2dp"
         />
 
     <ImageView
         android:layout_width="15dp"
         android:layout_height="15dp"
         android:id="@+id/star5"
-        android:src="@drawable/ic_grade"
         android:layout_alignTop="@id/star4"
         android:layout_toRightOf="@id/star4"
-        android:layout_marginLeft="2dp"
         />
     
     <TextView
