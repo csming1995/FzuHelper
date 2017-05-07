@@ -16,7 +16,17 @@ public class CourseBean {
     private boolean kcIsSingle=true;
     private int kcYear;
     private int kcXuenian;
+    private String kcNote;
     private int kcBackgroundId;
+
+    public String getKcNote() {
+        return kcNote;
+    }
+
+    public void setKcNote(String kcNote) {
+        this.kcNote = kcNote;
+    }
+
     public void setKcName(String kcName){
         this.kcName = kcName;
     }

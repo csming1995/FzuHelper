@@ -88,7 +88,7 @@ public class HttpUtil {
         OkHttpClient okHttpClient=new OkHttpClient.Builder().build();
         Log.i(TAG, "id:" + FzuCookie.get().getId());
         Request request=new Request.Builder()
-                .url("http://59.77.226.35/student/xyzk/cjyl/score_sheet.aspx?"+"id="+FzuCookie.get().getId())
+                .url("http://59.77.226.35/student/xkjg/wdxk/xkjg_list.aspx?"+"id="+FzuCookie.get().getId())
                 .addHeader("Cookie",FzuCookie.get().getCookie()+"")
                 .addHeader("Accept-Language","zh-CN,zh;q=0.8,en;q=0.6")
                 .addHeader("Connection","keep-alive")

@@ -25,7 +25,7 @@ public class HtmlParseUtil {
     public static boolean getCourse(Context context) {
         ArrayList<FDScore> scores = FDScoreLB.get(context).getScores();
         ArrayList<CourseBean> kcs = CourseBeanLab.get(context).getCourses();
-        if(scores.size()>=1&&kcs.size()>=2){
+        if(scores.size()>=1&&kcs.size()>=2||CourseBeanLab.get(context).isParse()){
             Log.i(TAG, "已经解析过");
             return true;
         }
@@ -34,42 +34,48 @@ public class HtmlParseUtil {
         Elements courseEles = document.select("tr[onmouseover=c=this.style.backgroundColor;this.style.backgroundColor='#CCFFaa']");
         for (int i = 0; i < courseEles.size(); i++) {
             Element kb = courseEles.get(i);
-            Element titleEle = kb.select("td").get(2);
-
+            Element titleEle = kb.select("td").get(1);
+            Log.e(TAG,"titile:"+titleEle.text());
             String title = titleEle.text();
             //解析学年
-            Element yearEle = kb.select("td").get(1);
-            String yearStr = yearEle.text().substring(0, 4);
-            String xuenianStr = yearEle.text().substring(4, 6);
+            String yearStr = "2017";
+            String xuenianStr = "01";
             int year = Integer.parseInt(yearStr);
             int xuenian = Integer.parseInt(xuenianStr);
             //解析成绩
             FDScore fdscore = new FDScore();
             fdscore.setName(title);
-            Element jihuaEle = kb.select("td").get(3);
+            Element jihuaEle = kb.select("td").get(2);
 
-            Element scoreEle = kb.select("td").get(4);
-            String score = scoreEle.text();
-            fdscore.setScore(score);
+//            Element scoreEle = kb.select("td").get(4);
+//            String score = scoreEle.text();
+//            fdscore.setScore(score);
 
-            Element jidianEle = kb.select("td").get(5);
-            String jidian = scoreEle.text();
-            fdscore.setJidian(jidian);
+//            Element jidianEle = kb.select("td").get(5);
+//            String jidian = scoreEle.text();
+//            fdscore.setJidian(jidian);
 
-            Element xuefenEle = kb.select("td").get(6);
+            Element xuefenEle = kb.select("td").get(4);
             String xuefen = xuefenEle.text();
             fdscore.setXuefen(xuefen);
             fdscore.setYear(year);
             fdscore.setXuenian(xuenian);
 
+            //解析课程备注:
+            Element noteEle=kb.select("td").get(11);
+            String note=noteEle.text();
 
             scores.add(fdscore);
             //解析上课时间
-            Element timeEle = kb.select("td").get(10);
+            Element timeEle = kb.select("td").get(8);
+
             String timeCou = timeEle.text();
             String[] strings = timeCou.split(" ");
             for (int j = 0; j < strings.length; j++) {
                 CourseBean kc = new CourseBean();
+                if (note.length()>=1){
+                    kc.setKcNote(note);
+                }
                 kc.setKcBackgroundId(i);
                 kc.setKcYear(year);
                 kc.setKcXuenian(xuenian);
@@ -122,7 +128,7 @@ public class HtmlParseUtil {
                 }
             }
         }
-
+        CourseBeanLab.get(context).setParse(true);
         Log.i(TAG,"共"+courseEles.size()+"个");
         return true;
     }

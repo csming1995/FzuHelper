@@ -418,7 +418,7 @@ public class CourseTableFragment extends Fragment{
 
         @Override
         protected void onPostExecute(Void aVoid) {
-                showKB(2, 2016, 1);
+                showKB(2, 2017, 1);
                 Log.i(TAG, "显示课表");
 
         }
