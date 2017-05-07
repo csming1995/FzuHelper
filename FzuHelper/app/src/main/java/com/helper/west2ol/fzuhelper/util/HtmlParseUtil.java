@@ -132,5 +132,28 @@ public class HtmlParseUtil {
         Log.i(TAG,"共"+courseEles.size()+"个");
         return true;
     }
+
+    public static boolean getBeginDate(Context context){
+        String html=HttpUtil.getHtml("http://59.77.226.32/xl.asp");
+        Log.i(TAG,html);
+        Document document = Jsoup.parse(html);
+        String now=document.select("div[style=padding:5px;border:1px black dotted]").text();
+        Log.i(TAG, "now:" + now);
+//        Elements monthEles=document.select("td[colspan=8]");
+//        String beginText=monthEles.get(0).text();
+//        String beginMonth=beginText.split("年")[1].split("月")[0];
+//        Log.i(TAG, "开学月份:" + beginMonth);
+//        int month=Integer.parseInt(beginMonth)-1;
+        Elements dayEles=document.select("td:matches(正式上课*)");
+        Element dayEle = dayEles.get(1);
+        String date=document.select("table[cellspacing]").get(1).text();
+        date=date.split("为正式上课")[0];
+        int length=date.length();
+        date=date.substring(length-5,length);
+        int month=Integer.parseInt(date.split("-")[0]);
+        int day=Integer.parseInt(date.split("-")[1]);
+        Log.i(TAG, "month:" + month + " day" + day);
+        return false;
+    }
 }
 

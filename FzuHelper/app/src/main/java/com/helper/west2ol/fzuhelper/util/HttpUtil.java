@@ -108,5 +108,24 @@ public class HttpUtil {
         return html;
     }
 
+    public static String getHtml(String url) {
+        OkHttpClient client = new OkHttpClient();
+        Request request=new Request.Builder().url(url)
+                .addHeader("Accept-Language","zh-CN,zh;q=0.8,en;q=0.6")
+                .addHeader("Accept","text/html,application/xhtml+xml,application/xml;charset=utf-8;q=0.9,image/webp,*/*;q=0.8")
+                .addHeader("Accept-Encoding","gzip, deflate, sdch").build();
+        try {
+            Response response=client.newCall(request).execute();
+            if (response.isSuccessful()) {
+                String result = new String(response.body().bytes(),"gb2312");
+                return result;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
 
 }

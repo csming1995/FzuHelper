@@ -128,6 +128,24 @@
             android:layout_marginLeft="25dp"
             android:layout_marginRight="25dp"
             android:layout_weight="1">
+            <com.helper.west2ol.fzuhelper.component.CustomImageView
+                android:id="@+id/item5_Button"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:backgroundTint="@color/colorAccent"
+                android:background="@drawable/shape"
+                android:src="@drawable/button_image_4"
+                android:elevation="10dp"
+                />
+            <TextView
+                android:layout_alignParentBottom="true"
+                android:layout_width="100dp"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginBottom="10dp"
+                android:gravity="center"
+                android:textSize="16dp"
+                android:text="测试按钮"/>
         </RelativeLayout>
         <!-- 用来藏照片查看  -->
         <RelativeLayout
