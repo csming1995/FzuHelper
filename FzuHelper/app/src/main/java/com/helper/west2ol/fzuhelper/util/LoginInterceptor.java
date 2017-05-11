@@ -1,0 +1,49 @@
+package com.helper.west2ol.fzuhelper.util;
+
+import android.util.Log;
+
+import java.io.IOException;
+
+import okhttp3.Interceptor;
+import okhttp3.Request;
+import okhttp3.Response;
+
+/**
+ * Created by CoderQiang on 2016/10/24.
+ *
+ *
+ * OKHttp的网络拦截器，用于获取Cookie和id
+ */
+
+public class LoginInterceptor implements Interceptor {
+    private static final String TAG="LoginInterceptor";
+
+    @Override
+    public Response intercept(Chain chain) throws IOException {
+        Request request=chain.request();
+        Response response=chain.proceed(request);
+
+        String cookie=response.header("Set-Cookie");
+        if (cookie != null) {
+            FzuCookie.get().setCookie(cookie);
+        }
+
+        String idStr=response.header("Location");
+        if (idStr != null) {
+            int i=0;
+            int length=0;
+            String temp;
+            while(i<idStr.length()){
+                temp=idStr.substring(i,i+2);
+                if(temp.equals("id")){
+                    length=i;
+                    break;
+                }
+                i++;
+            }
+            FzuCookie.get().setId(idStr.substring(length));
+        }
+
+        return response;
+    }
+}

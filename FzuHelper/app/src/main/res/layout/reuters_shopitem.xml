@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minHeight="70dp"
+    >
+
+    <!--
+            需要返回的数据:
+            1.店铺名称（shopName）
+            2.店铺种类（shopCategory）
+            3.店铺评分（shopScore）
+            4.评论条数（commentCount）
+    -->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/shopName"
+        android:textColor="@color/colorBlack"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignBaseline="@id/shopName"
+        android:id="@+id/shopCategory"
+        android:textSize="15sp"
+        android:textColor="@color/colorBlack"
+        android:layout_alignParentTop="true" />
+
+    <ImageView
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_marginTop="5dp"
+        android:id="@+id/star1"
+        android:layout_below="@id/shopName"
+        android:layout_marginLeft="3dp"
+    />
+
+    <ImageView
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:id="@+id/star2"
+        android:layout_alignTop="@id/star1"
+        android:layout_toRightOf="@id/star1"
+        />
+
+    <ImageView
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:id="@+id/star3"
+        android:layout_alignTop="@id/star2"
+        android:layout_toRightOf="@id/star2"
+        />
+
+    <ImageView
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:id="@+id/star4"
+        android:layout_alignTop="@id/star3"
+        android:layout_toRightOf="@id/star3"
+        />
+
+    <ImageView
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:id="@+id/star5"
+        android:layout_alignTop="@id/star4"
+        android:layout_toRightOf="@id/star4"
+        />
+    
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="15dp"
+        android:layout_alignTop="@id/star5"
+        android:layout_toRightOf="@id/star5"
+        android:layout_marginLeft="3dp"
+        android:id="@+id/shopScore"
+        android:textColor="@color/colorOrange"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="18dp"
+        android:id="@+id/final_comment"
+        android:text="评论"
+        android:textSize="15dp"
+        android:textColor="@color/colorBlack"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="18dp"
+        android:layout_toLeftOf="@id/final_comment"
+        android:layout_alignParentBottom="true"
+        android:paddingRight="2dp"
+        android:id="@+id/commentCount"
+        android:textColor="@color/colorBlack"
+        />
+
+
+
+</RelativeLayout>
